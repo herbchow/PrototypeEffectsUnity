@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.FakeGodrays
 {
@@ -8,7 +9,7 @@ namespace Assets.FakeGodrays
 
         private float X = 0.5f;
         private float Y = 0.5f;
-        private float Density = 0.2f;
+        private float Density = 0.15f;
         private float Decay = 0.8f;
         private float Exposure = 1f;
         private float Clamp = 10f;
@@ -21,12 +22,21 @@ namespace Assets.FakeGodrays
                 throw new UnassignedReferenceException("Please assign a joystick object");
             }
             Joystick.JoystickMovedEvent += JoystickMoved;
+            Joystick.FingerLiftedEvent += JoystickOnFingerLiftedEvent;
+        }
+
+        private void JoystickOnFingerLiftedEvent()
+        {
+            X = 0.5f;
+            Y = 0.5f;
         }
 
         private void JoystickMoved(Vector3 relativevector)
         {
-            X += relativevector.x;
-            Y += relativevector.y;
+            X = 0.5f - relativevector.x;
+            Y = 0.5f - relativevector.y;
+            X = Mathf.Clamp(X, 0, 1);
+            Y = Mathf.Clamp(Y, 0, 1);
         }
 
         private void OnGUI()
