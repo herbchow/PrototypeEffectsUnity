@@ -4,6 +4,8 @@ namespace Assets.FakeGodrays
 {
     public class FakeGodRaysTuner : MonoBehaviour
     {
+        public CNJoystick Joystick;
+
         private float X = 0.5f;
         private float Y = 0.5f;
         private float Density = 0.2f;
@@ -11,6 +13,21 @@ namespace Assets.FakeGodrays
         private float Exposure = 1f;
         private float Clamp = 10f;
         private float Weight = 0.8f;
+
+        private void Awake()
+        {
+            if (Joystick == null)
+            {
+                throw new UnassignedReferenceException("Please assign a joystick object");
+            }
+            Joystick.JoystickMovedEvent += JoystickMoved;
+        }
+
+        private void JoystickMoved(Vector3 relativevector)
+        {
+            X += relativevector.x;
+            Y += relativevector.y;
+        }
 
         private void OnGUI()
         {
