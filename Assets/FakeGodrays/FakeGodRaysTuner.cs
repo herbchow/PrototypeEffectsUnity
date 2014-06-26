@@ -15,7 +15,7 @@ namespace Assets.FakeGodrays
         private void OnGUI()
         {
             int xMargin = 25;
-            int width = 200;
+            int width = 400;
             int xMarginText = xMargin + width;
             int height = 80;
             float minValue = -5f;

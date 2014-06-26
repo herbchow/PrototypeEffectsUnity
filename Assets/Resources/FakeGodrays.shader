@@ -16,6 +16,8 @@
         LOD 200
         Cull Off
 		Blend One One
+		ZTest Always
+		ZWrite Off
          
         CGPROGRAM
         #pragma target 3.0

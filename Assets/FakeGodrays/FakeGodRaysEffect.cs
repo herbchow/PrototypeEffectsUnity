@@ -21,7 +21,7 @@ public class FakeGodRaysEffect : MonoBehaviour
     {
         Tuner = FindObjectOfType<FakeGodRaysTuner>();
         _godrayQuad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-        _godrayQuad.layer = LayerMask.NameToLayer("TransparentFX");
+        
         float scaleFactor = 3.0f;
         _godrayQuad.transform.localScale = new Vector3(gameObject.transform.localScale.x*scaleFactor,
                                                        gameObject.transform.localScale.y*scaleFactor,
@@ -29,10 +29,12 @@ public class FakeGodRaysEffect : MonoBehaviour
         _godrayQuad.transform.localPosition = gameObject.transform.localPosition;
         if (!IsBehindObject)
         {
+            _godrayQuad.layer = LayerMask.NameToLayer("GodrayProducts");
             _godrayQuad.transform.localPosition -= _godrayQuad.transform.forward * GODRAY_OFFSET;    
         }
         else
         {
+            _godrayQuad.layer = LayerMask.NameToLayer("BeforeProducts");
             _godrayQuad.transform.localPosition += _godrayQuad.transform.forward * GODRAY_OFFSET;    
         }
         
