@@ -12,6 +12,10 @@ public class FakeGodRaysEffect : MonoBehaviour
     private float _clampSlider = 10f;
     private float _weightSlider = 0.8f;
     private FakeGodRaysTuner Tuner;
+
+    private const float GODRAY_OFFSET = 0.001f;
+
+    public bool IsBehindObject = false;
     // Use this for initialization
     private void Start()
     {
@@ -23,6 +27,15 @@ public class FakeGodRaysEffect : MonoBehaviour
                                                        gameObject.transform.localScale.y*scaleFactor,
                                                        1f);
         _godrayQuad.transform.localPosition = gameObject.transform.localPosition;
+        if (!IsBehindObject)
+        {
+            _godrayQuad.transform.localPosition -= _godrayQuad.transform.forward * GODRAY_OFFSET;    
+        }
+        else
+        {
+            _godrayQuad.transform.localPosition += _godrayQuad.transform.forward * GODRAY_OFFSET;    
+        }
+        
         _godrayQuad.renderer.material = new Material(Shader.Find("Custom/FakeGodrays"));
         _godrayQuad.renderer.material.SetTexture("tDiffuse", gameObject.renderer.material.mainTexture);
     }
