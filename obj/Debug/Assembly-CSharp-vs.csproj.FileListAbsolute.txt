@@ -1,0 +1,11 @@
+C:\Work\PrototypeEffects\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Work\PrototypeEffects\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Work\PrototypeEffects\Temp\bin\Debug\UnityEditor.dll
+C:\Work\PrototypeEffects\Temp\bin\Debug\UnityEngine.dll
+C:\Work\PrototypeEffects\Temp\bin\Debug\Mono.Cecil.dll
+C:\Work\PrototypeEffects\Temp\bin\Debug\nunit.framework.dll
+C:\Work\PrototypeEffects\Temp\bin\Debug\Unity.DataContract.dll
+C:\Work\PrototypeEffects\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Work\PrototypeEffects\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache
+C:\Work\PrototypeEffects\obj\Debug\Assembly-CSharp.dll
+C:\Work\PrototypeEffects\obj\Debug\Assembly-CSharp.pdb
