@@ -41,7 +41,7 @@ public class FullScreenGodrayAlt : MonoBehaviour
         var cam = GodrayCamera.camera;
         cam.targetTexture = MaskRt;
         cam.clearFlags = CameraClearFlags.SolidColor;
-        cam.backgroundColor = Color.red;
+        cam.backgroundColor = Color.black;
         cam.RenderWithShader(ItemMaskShader, "RenderType");
 
         cam.targetTexture = LightSourceRt;
