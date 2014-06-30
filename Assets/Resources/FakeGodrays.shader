@@ -2,6 +2,7 @@
     Properties 
     {
         tDiffuse ("Base (RGB)", 2D) = "white" {}
+		tClamp ("Clamp (RGB)", 2D) = "wite" {}
         fX ("fX", Float) = 0.5 // you can feed mouse xpos here with script: var mpos:Vector3 = Camera.main.ScreenToViewportPoint(Input.mousePosition); renderer.material.SetFloat( "fX", mpos.x);
         fY ("fY", Float) = 0.5 //  mouse ypos
         fExposure ("fExposure", Float) = 0.6
@@ -24,6 +25,7 @@
         #pragma surface surf Lambert
  
         sampler2D tDiffuse;
+		sampler2D tClamp;
         float fX,fY,fExposure,fDecay,fDensity,fWeight,fClamp,iSamples;
  
         struct Input {
@@ -51,20 +53,12 @@
             float2 coord = vUv;
             float illuminationDecay = 1.0;
             float4 FragColor = float4(0,0,0,0);
-            for(int i=0; i < iSamples ; i++)
+			for(int i=0; i < iSamples ; i++)
             {
                 coord -= deltaTextCoord;
+				float4 clampFactor = tex2D(tClamp, coord);
                 float4 texel = tex2D(tDiffuse, coord);
-				float factor = 1;
-				if(coord.x > 1)
-					factor = 0;
-				if(coord.x < 0)
-					factor = 0;
-				if(coord.y > 1)
-					factor = 0;
-				if(coord.y < 0)
-					factor = 0;
-                texel *= illuminationDecay * fWeight * factor * texel.a;
+                texel *= illuminationDecay * fWeight * texel.a * clampFactor.r;
                 FragColor += texel;
                 illuminationDecay *= fDecay;
             }

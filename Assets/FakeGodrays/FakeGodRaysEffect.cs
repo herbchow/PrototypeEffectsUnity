@@ -40,6 +40,10 @@ public class FakeGodRaysEffect : MonoBehaviour
         
         _godrayQuad.renderer.material = new Material(Shader.Find("Custom/FakeGodrays"));
         _godrayQuad.renderer.material.SetTexture("tDiffuse", gameObject.renderer.material.mainTexture);
+
+        _godrayQuad.renderer.material.SetTexture("tClamp", Resources.Load<Texture2D>("GodrayClamp"));
+        _godrayQuad.renderer.material.GetTexture("tClamp").wrapMode = TextureWrapMode.Clamp;
+        _godrayQuad.renderer.material.GetTexture("tClamp").filterMode = FilterMode.Point;
     }
 
     // Update is called once per frame

@@ -338,7 +338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &653535237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -634,7 +634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e07321348b89ccd4593ac0fc753ed153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  remoteTesting: 1
+  remoteTesting: 0
   placementSnap: 3
   tapZone:
     serializedVersion: 2
@@ -925,6 +925,10 @@ Prefab:
     - target: {fileID: 11400000, guid: e0e66381cb3783b4a9dc46adda93681d, type: 2}
       propertyPath: placementSnap
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: e0e66381cb3783b4a9dc46adda93681d, type: 2}
+      propertyPath: remoteTesting
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e0e66381cb3783b4a9dc46adda93681d, type: 2}
