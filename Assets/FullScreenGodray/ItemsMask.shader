@@ -2,7 +2,9 @@
 SubShader {
 	Tags { "RenderType"="Transparent" }
 	Pass {
-		Color (1,1,1,1)
+		Blend SrcAlpha OneMinusSrcAlpha
+		AlphaTest Greater 0
+		SetTexture [_MainTex] {combine one-texture,texture}
 	}
 }
 }

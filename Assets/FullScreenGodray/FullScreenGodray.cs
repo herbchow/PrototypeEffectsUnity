@@ -21,7 +21,8 @@ public class FullScreenGodray : MonoBehaviour
             cam.backgroundColor = Color.black;
             cam.clearFlags = CameraClearFlags.SolidColor;
         }
-        _maskCamera.camera.RenderWithShader(ItemMaskShader, "RenderType");
+        // TODO: How do we target Transparent only?
+        _maskCamera.camera.RenderWithShader(ItemMaskShader, "");
     }
 
     private void OnDisable()
