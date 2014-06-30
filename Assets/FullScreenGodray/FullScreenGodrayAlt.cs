@@ -47,7 +47,7 @@ public class FullScreenGodrayAlt : MonoBehaviour
         cam.targetTexture = LightSourceRt;
         cam.clearFlags = CameraClearFlags.SolidColor;
         cam.backgroundColor = Color.black;
-        Shader.SetGlobalTexture("_LightSourceTex",LightSource);
+        //Shader.SetGlobalTexture("_MainTex",LightSource);
         cam.RenderWithShader(LightSourceShader, "Godray");
         //RenderLightSource();
         // Draw a quad with material

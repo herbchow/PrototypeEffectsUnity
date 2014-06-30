@@ -1,6 +1,6 @@
 ﻿Shader "Custom/LightSource" {
 Properties {
-		_LightSourceTex ("Light Source", 2D) = "white" {}
+		_MainTex ("Light Source", 2D) = "white" {}
 		_LightScreenPos ("Light Screen Position", Vector) = (0,0,0,0)
 		_UvOffset ("UV Offset", Vector) = (0,0,0,0)
 		_LightSize ("Light size", Float) = 2.0
@@ -18,7 +18,6 @@ Properties {
     			uniform float2 _LightScreenPos;
                 uniform float2 _UvOffset;
     			uniform sampler2D _MainTex;
-				uniform sampler2D _LightSourceTex;
                 uniform float _LightSize;
 
 			    struct v2f {
@@ -39,7 +38,7 @@ Properties {
                     half4 color = half4(0,0,0,1);
                     // Find light position in world and map it to screen space
                     float2 coord = 0.5f - (i.uv - _LightScreenPos) / _LightSize * 0.5f;
-                    color += pow(tex2D(_LightSourceTex,coord),2) * 2;
+                    color += pow(tex2D(_MainTex,coord),2) * 2;
 					return color;
 			    }
 
