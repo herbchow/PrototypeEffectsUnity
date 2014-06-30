@@ -12,18 +12,6 @@ public class FullScreenGodrayAlt : MonoBehaviour
     private GameObject _godrayCamera;
 
     private Material _lightSourceMaterial;
-
-    private Material LightSourceMaterial
-    {
-        get
-        {
-            if (_lightSourceMaterial == null)
-            {
-                _lightSourceMaterial = new Material(LightSourceShader);
-            }
-            return _lightSourceMaterial;
-        }
-    }
     private GameObject GodrayCamera
     {
         get
@@ -55,6 +43,12 @@ public class FullScreenGodrayAlt : MonoBehaviour
         cam.clearFlags = CameraClearFlags.SolidColor;
         cam.backgroundColor = Color.red;
         cam.RenderWithShader(ItemMaskShader, "RenderType");
+
+        cam.targetTexture = LightSourceRt;
+        cam.clearFlags = CameraClearFlags.SolidColor;
+        cam.backgroundColor = Color.black;
+        Shader.SetGlobalTexture("_LightSourceTex",LightSource);
+        cam.RenderWithShader(LightSourceShader, "Godray");
         //RenderLightSource();
         // Draw a quad with material
         //RenderLightSource(LightSourceMaterial, LightSourceRt);

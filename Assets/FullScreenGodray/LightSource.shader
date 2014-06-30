@@ -6,7 +6,7 @@ Properties {
 		_LightSize ("Light size", Float) = 2.0
 			}
 	SubShader {
-            Tags { "Queue" = "Transparent" }
+            Tags { "Godray" = "Lightsource" }
             Pass {
 
 			    CGPROGRAM
