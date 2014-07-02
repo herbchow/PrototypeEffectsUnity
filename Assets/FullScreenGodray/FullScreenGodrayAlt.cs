@@ -5,13 +5,30 @@ public class FullScreenGodrayAlt : MonoBehaviour
 {
     public Shader ItemMaskShader;
     public Shader LightSourceShader;
+    public Shader GodrayShader;
     public Texture2D LightSource;
+
+    private Material _godrayMaterial;
+    public Material GodrayMaterial
+    {
+        get
+        {
+            if (_godrayMaterial == null)
+            {
+                _godrayMaterial = new Material(GodrayShader);
+            }
+            ExposeGodrayMaterial = _godrayMaterial;
+            return _godrayMaterial;
+        }
+    }
+
+    public Material ExposeGodrayMaterial;
 
     public RenderTexture MaskRt;
     public RenderTexture LightSourceRt;
     private GameObject _godrayCamera;
-
     private Material _lightSourceMaterial;
+
     private GameObject GodrayCamera
     {
         get
@@ -25,7 +42,6 @@ public class FullScreenGodrayAlt : MonoBehaviour
             return _godrayCamera;
         }
     }
-
 
     // Use this for initialization
     private void Start()
@@ -41,37 +57,19 @@ public class FullScreenGodrayAlt : MonoBehaviour
         var cam = GodrayCamera.camera;
         cam.targetTexture = MaskRt;
         cam.clearFlags = CameraClearFlags.SolidColor;
-        cam.backgroundColor = Color.black;
+        cam.backgroundColor = new Color(0, 0, 0, 0);
         cam.RenderWithShader(ItemMaskShader, "RenderType");
-
         cam.targetTexture = LightSourceRt;
         cam.clearFlags = CameraClearFlags.SolidColor;
         cam.backgroundColor = Color.black;
-        //Shader.SetGlobalTexture("_MainTex",LightSource);
         cam.RenderWithShader(LightSourceShader, "Godray");
-        //RenderLightSource();
-        // Draw a quad with material
-        //RenderLightSource(LightSourceMaterial, LightSourceRt);
     }
 
-    //private void OnRenderImage(RenderTexture src, RenderTexture dst)
-    //{
-    //    // TODO: The src will always be the stuff rendered on The Main.Camera (where this script is attached to)
-    //    RenderLightSource(src);
-    //}
-
-    //private void RenderLightSource(RenderTexture src)
-    //{
-    //    //var saved = RenderTexture.active;
-    //    LightSourceMaterial.SetTexture("_LightSourceTex", LightSource);
-    //    LightSourceMaterial.SetVector("_LightScreenPos", new Vector4(0.18f, 0.48f, 0, 0));
-    //    LightSourceMaterial.SetFloat("_LightSize", 0.33f);
-    //    ImageEffects.BlitWithMaterial(LightSourceMaterial, MaskRt, LightSourceRt);
-    //    //RenderTexture.active = saved;
-    //}
-
-    //private void OnRenderImage(RenderTexture source, RenderTexture destination)
-    //{
-    //    Graphics.Blit(LightSourceRt, destination);
-    //}
+    private void OnRenderImage(RenderTexture src, RenderTexture dst)
+    {
+        GodrayMaterial.SetTexture("tItemMask", MaskRt);
+        GodrayMaterial.SetTexture("tLightSource", LightSourceRt);
+        //ImageEffects.BlitWithMaterial(GodrayMaterial, src, dst);
+        Graphics.Blit(src, dst,GodrayMaterial);
+    }
 }

@@ -140,7 +140,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 678223421}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.760375977, y: -.593348503, z: -.935157776}
+  m_LocalPosition: {x: .322145343, y: .569786072, z: -.935157776}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -176,8 +176,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemMaskShader: {fileID: 4800000, guid: b7c097dbd9bd29d4c805da7f97e4a30c, type: 3}
-  LightSourceShader: {fileID: 4800000, guid: 181c68bb534d5b84a9a7150d74660c24, type: 3}
+  LightSourceShader: {fileID: 4800000, guid: 48681ed503ecd054baec98f0c43d25b7, type: 3}
+  GodrayShader: {fileID: 4800000, guid: eb6de82e712ef1e4e8b2dd44dde03004, type: 3}
   LightSource: {fileID: 2800000, guid: 6edca815fa2de874da40b856530c21c8, type: 3}
+  ExposeGodrayMaterial: {fileID: 0}
   MaskRt: {fileID: 0}
   LightSourceRt: {fileID: 0}
 --- !u!81 &1786380299

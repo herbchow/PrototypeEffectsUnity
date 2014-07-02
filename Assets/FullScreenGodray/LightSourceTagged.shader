@@ -5,9 +5,8 @@
 	SubShader {
 		Tags { "Godray"="LightSource" }
 		Pass {
-		Blend SrcAlpha OneMinusSrcAlpha
-		AlphaTest Greater 0
-		SetTexture [_MainTex] {combine one-texture,texture}
+		Blend One One
+		SetTexture [_MainTex] {combine texture}
 		}
 	} 
 	FallBack "Diffuse"

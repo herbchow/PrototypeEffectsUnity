@@ -4,7 +4,9 @@ SubShader {
 	Pass {
 		Blend SrcAlpha OneMinusSrcAlpha
 		AlphaTest Greater 0
-		SetTexture [_MainTex] {combine one-texture,texture}
+		SetTexture [_MainTex] {combine texture,texture}
 	}
+
+
 }
 }

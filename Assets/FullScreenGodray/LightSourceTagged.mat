@@ -31,7 +31,7 @@ Material:
       data:
         first:
           name: _LightSize
-        second: 2
+        second: .469999999
     m_Colors:
       data:
         first:
