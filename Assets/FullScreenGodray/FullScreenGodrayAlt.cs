@@ -5,27 +5,12 @@ public class FullScreenGodrayAlt : MonoBehaviour
 {
     public Shader ItemMaskShader;
     public Shader LightSourceShader;
-    public Shader GodrayShader;
     public Texture2D LightSource;
 
     private const string LayerGodrayProducts = "Products";
     private const string LayerGodrayLight = "GodrayLight";
 
-    private Material _godrayMaterial;
-    public Material GodrayMaterial
-    {
-        get
-        {
-            if (_godrayMaterial == null)
-            {
-                _godrayMaterial = new Material(GodrayShader);
-            }
-            ExposeGodrayMaterial = _godrayMaterial;
-            return _godrayMaterial;
-        }
-    }
-
-    public Material ExposeGodrayMaterial;
+    public Material GodrayMaterial;
 
     public RenderTexture MaskRt;
     public RenderTexture LightSourceRt;

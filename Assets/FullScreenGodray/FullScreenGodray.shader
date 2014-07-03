@@ -11,6 +11,7 @@ Properties
         fDensity ("fDensity", Float) = 0.96
         fWeight ("fWeight", Float) = 0.4
         fClamp ("fClamp", Float) = 1.0
+		vHalfPixel ("vHalfPixel", Vector) = (0,0,0,0)
     }
     SubShader {
 		Pass{		         
@@ -25,6 +26,7 @@ Properties
 		        uniform sampler2D tItemMask;
 				uniform sampler2D tLightSource;
 		        uniform float fX,fY,fExposure,fDecay,fDensity,fWeight,fClamp;
+				uniform float4 vHalfPixel;
 		 
 		        struct v2f {
 					float4 pos : POSITION;
@@ -41,13 +43,14 @@ Properties
 		 
 		        half4 frag (v2f i) : COLOR
 		        {
-					int iSamples=40;
+					int iSamples=60;
 					
-					float2 uv = i.uv;
+					float2 uv = i.uv - vHalfPixel;
 					float2 deltaTextCoord = float2(uv - float2(fX,fY));
+
 					deltaTextCoord *= 1.0 /  float(iSamples) * fDensity;
 					float illuminationDecay = 1.0;
-					half4 FragColor = tex2D(_MainTex, uv);
+					half4 sceneColor = tex2D(_MainTex, uv);
 					half4 itemMask = tex2D(tItemMask, uv);
 					float2 coord = uv;
 					
@@ -55,15 +58,15 @@ Properties
 					{
 					    coord -= deltaTextCoord;
 					    float4 lightSource = tex2D(tLightSource, coord);
-						float4 lightContribution = lightSource * fExposure;
-
+						float4 lightContribution = lightSource * fExposure * illuminationDecay;
+						float4 sceneSample = tex2D(_MainTex, coord);
 					    //itemMask *= lightSource * illuminationDecay * fWeight * itemMask.a;
-					    FragColor += lightContribution;
+					    sceneColor += sceneSample*lightContribution;
 					    illuminationDecay *= fDecay;
 					}
 					//FragColor *= fExposure;
-					FragColor = clamp(FragColor, 0.0, fClamp);
-					return FragColor;
+					sceneColor = clamp(sceneColor, 0.0, fClamp);
+					return sceneColor;
 		        }
 		        ENDCG
 				}
