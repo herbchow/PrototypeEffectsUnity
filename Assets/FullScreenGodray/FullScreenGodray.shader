@@ -41,8 +41,29 @@ Properties
 		 
 		        half4 frag (v2f i) : COLOR
 		        {
-					half4 c = tex2D(tLightSource,i.uv);
-					return c;             
+					int iSamples=40;
+					
+					float2 uv = i.uv;
+					float2 deltaTextCoord = float2(uv - float2(fX,fY));
+					deltaTextCoord *= 1.0 /  float(iSamples) * fDensity;
+					float illuminationDecay = 1.0;
+					half4 FragColor = tex2D(_MainTex, uv);
+					half4 itemMask = tex2D(tItemMask, uv);
+					float2 coord = uv;
+					
+					for(int i=0; i < iSamples ; i++)
+					{
+					    coord -= deltaTextCoord;
+					    float4 lightSource = tex2D(tLightSource, coord);
+						float4 lightContribution = lightSource * fExposure;
+
+					    //itemMask *= lightSource * illuminationDecay * fWeight * itemMask.a;
+					    FragColor += lightContribution;
+					    illuminationDecay *= fDecay;
+					}
+					//FragColor *= fExposure;
+					FragColor = clamp(FragColor, 0.0, fClamp);
+					return FragColor;
 		        }
 		        ENDCG
 				}

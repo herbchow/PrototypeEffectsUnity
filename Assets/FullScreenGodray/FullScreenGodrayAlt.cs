@@ -8,6 +8,9 @@ public class FullScreenGodrayAlt : MonoBehaviour
     public Shader GodrayShader;
     public Texture2D LightSource;
 
+    private const string LayerGodrayProducts = "Products";
+    private const string LayerGodrayLight = "GodrayLight";
+
     private Material _godrayMaterial;
     public Material GodrayMaterial
     {
@@ -55,14 +58,22 @@ public class FullScreenGodrayAlt : MonoBehaviour
     private void OnPreRender()
     {
         var cam = GodrayCamera.camera;
+
+        var saveMask = cam.cullingMask;
+
         cam.targetTexture = MaskRt;
         cam.clearFlags = CameraClearFlags.SolidColor;
         cam.backgroundColor = new Color(0, 0, 0, 0);
+        cam.cullingMask = 1 << LayerMask.NameToLayer(LayerGodrayProducts);
         cam.RenderWithShader(ItemMaskShader, "RenderType");
+
         cam.targetTexture = LightSourceRt;
         cam.clearFlags = CameraClearFlags.SolidColor;
         cam.backgroundColor = Color.black;
+        cam.cullingMask = 1 << LayerMask.NameToLayer(LayerGodrayLight);
         cam.RenderWithShader(LightSourceShader, "Godray");
+
+        cam.cullingMask = saveMask;
     }
 
     private void OnRenderImage(RenderTexture src, RenderTexture dst)

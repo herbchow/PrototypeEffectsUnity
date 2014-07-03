@@ -85,7 +85,7 @@ GameObject:
   - 33: {fileID: 678223424}
   - 64: {fileID: 678223423}
   - 23: {fileID: 678223422}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LightSourceQuad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 512
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_HDR: 0
@@ -254,7 +254,7 @@ GameObject:
   - 33: {fileID: 2110934485}
   - 64: {fileID: 2110934484}
   - 23: {fileID: 2110934483}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ProductQuad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
