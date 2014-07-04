@@ -6,6 +6,8 @@ public class FullScreenGodrayAlt : MonoBehaviour
     public Shader ItemMaskShader;
     public Shader LightSourceShader;
     public Texture2D LightSource;
+    public float LightScreenCoordX;
+    public float LightScreenCoordY;
 
     private const string LayerGodrayProducts = "Products";
     private const string LayerGodrayLight = "GodrayLight";
@@ -65,6 +67,8 @@ public class FullScreenGodrayAlt : MonoBehaviour
     {
         GodrayMaterial.SetTexture("tItemMask", MaskRt);
         GodrayMaterial.SetTexture("tLightSource", LightSourceRt);
+        GodrayMaterial.SetFloat("fX", LightScreenCoordX);
+        GodrayMaterial.SetFloat("fY", LightScreenCoordY);
         //ImageEffects.BlitWithMaterial(GodrayMaterial, src, dst);
         Graphics.Blit(src, dst,GodrayMaterial);
     }

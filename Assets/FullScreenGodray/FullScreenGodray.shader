@@ -60,8 +60,7 @@ Properties
 					    float4 lightSource = tex2D(tLightSource, coord);
 						float4 lightContribution = lightSource * fExposure * illuminationDecay;
 						float4 sceneSample = tex2D(_MainTex, coord);
-					    //itemMask *= lightSource * illuminationDecay * fWeight * itemMask.a;
-					    sceneColor += sceneSample*lightContribution;
+					    sceneColor += sceneSample*lightContribution*sceneSample.a;
 					    illuminationDecay *= fDecay;
 					}
 					//FragColor *= fExposure;

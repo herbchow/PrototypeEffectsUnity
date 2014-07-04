@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: LightSourceTagged
-  m_Shader: {fileID: 4800000, guid: 181c68bb534d5b84a9a7150d74660c24, type: 3}
+  m_Name: LightSource
+  m_Shader: {fileID: 4800000, guid: 48681ed503ecd054baec98f0c43d25b7, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -31,7 +31,7 @@ Material:
       data:
         first:
           name: _LightSize
-        second: .469999999
+        second: 1.30999994
     m_Colors:
       data:
         first:
@@ -40,7 +40,7 @@ Material:
       data:
         first:
           name: _LightScreenPos
-        second: {r: .479999989, g: .419999987, b: 0, a: 0}
+        second: {r: .5, g: .5, b: 0, a: 0}
       data:
         first:
           name: _UvOffset

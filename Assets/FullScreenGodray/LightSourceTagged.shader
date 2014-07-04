@@ -5,6 +5,7 @@
 	SubShader {
 		Tags { "Godray"="LightSource" }
 		Pass {
+		ZWrite Off
 		Blend One One
 		SetTexture [_MainTex] {combine texture}
 		}

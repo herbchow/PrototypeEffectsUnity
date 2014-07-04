@@ -38,27 +38,27 @@ Material:
       data:
         first:
           name: fX
-        second: .5
+        second: .451787114
       data:
         first:
           name: fY
-        second: .280000001
+        second: .499227583
       data:
         first:
           name: fExposure
-        second: .949999988
+        second: .270000011
       data:
         first:
           name: fDecay
-        second: .810000002
+        second: .949999988
       data:
         first:
           name: fDensity
-        second: 1.51999998
+        second: .699999988
       data:
         first:
           name: fWeight
-        second: -.140000001
+        second: 1
       data:
         first:
           name: fClamp
