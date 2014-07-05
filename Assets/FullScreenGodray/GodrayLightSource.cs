@@ -4,11 +4,11 @@ using System.Collections;
 public class GodrayLightSource : MonoBehaviour
 {
     public GameObject LitProduct;
-    public FullScreenGodrayAlt FullScreenGodray;
+    public FullScreenGodray FullScreenGodray;
 	// Use this for initialization
 	void Start ()
 	{
-	    FullScreenGodray = Camera.main.GetComponent<FullScreenGodrayAlt>();
+	    FullScreenGodray = Camera.main.GetComponent<FullScreenGodray>();
 	}
 	
 	// Update is called once per frame

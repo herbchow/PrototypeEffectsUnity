@@ -38,11 +38,11 @@ Material:
       data:
         first:
           name: fX
-        second: .451787114
+        second: .560298502
       data:
         first:
           name: fY
-        second: .499227583
+        second: .156048864
       data:
         first:
           name: fExposure
@@ -63,6 +63,10 @@ Material:
         first:
           name: fClamp
         second: 1
+      data:
+        first:
+          name: _AlphaCutoff
+        second: .674999952
     m_Colors:
       data:
         first:

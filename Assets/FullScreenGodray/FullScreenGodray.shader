@@ -9,12 +9,13 @@ Properties
         fExposure ("fExposure", Float) = 0.6
         fDecay ("fDecay", Float) = 0.93
         fDensity ("fDensity", Float) = 0.96
-        fWeight ("fWeight", Float) = 0.4
         fClamp ("fClamp", Float) = 1.0
 		vHalfPixel ("vHalfPixel", Vector) = (0,0,0,0)
+		_AlphaCutoff ("Base Alpha cutoff", Range (0,.9)) = .5
     }
     SubShader {
-		Pass{		         
+		Pass{		
+				AlphaTest Greater [_AlphaCutoff]        
 		        CGPROGRAM
 		        #pragma target 3.0
 				#pragma vertex vert
@@ -43,7 +44,7 @@ Properties
 		 
 		        half4 frag (v2f i) : COLOR
 		        {
-					int iSamples=60;
+					int iSamples=10;
 					
 					float2 uv = i.uv - vHalfPixel;
 					float2 deltaTextCoord = float2(uv - float2(fX,fY));
@@ -58,12 +59,11 @@ Properties
 					{
 					    coord -= deltaTextCoord;
 					    float4 lightSource = tex2D(tLightSource, coord);
-						float4 lightContribution = lightSource * fExposure * illuminationDecay;
+						float4 lightContribution = lightSource * fExposure * illuminationDecay*itemMask.a;
 						float4 sceneSample = tex2D(_MainTex, coord);
 					    sceneColor += sceneSample*lightContribution*sceneSample.a;
 					    illuminationDecay *= fDecay;
 					}
-					//FragColor *= fExposure;
 					sceneColor = clamp(sceneColor, 0.0, fClamp);
 					return sceneColor;
 		        }
