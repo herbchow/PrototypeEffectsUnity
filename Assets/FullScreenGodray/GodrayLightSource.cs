@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class GodrayLightSource : MonoBehaviour
 {
     public GameObject LitProduct;
-    public FullScreenGodray FullScreenGodray;
+    private FullScreenGodray FullScreenGodray;
 	// Use this for initialization
 	void Start ()
 	{

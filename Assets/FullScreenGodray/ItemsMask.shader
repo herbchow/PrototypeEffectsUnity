@@ -6,7 +6,5 @@ SubShader {
 		AlphaTest Greater 0
 		SetTexture [_MainTex] {combine texture,texture}
 	}
-
-
 }
 }

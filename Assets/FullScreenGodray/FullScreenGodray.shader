@@ -26,8 +26,9 @@ Properties
 				uniform sampler2D _MainTex;
 		        uniform sampler2D tItemMask;
 				uniform sampler2D tLightSource;
-		        uniform float fX,fY,fExposure,fDecay,fDensity,fWeight,fClamp;
+		        uniform float fX,fY,fExposure,fDecay,fDensity,fClamp;
 				uniform float4 vHalfPixel;
+				uniform float4 _MainTex_TexelSize;
 		 
 		        struct v2f {
 					float4 pos : POSITION;
@@ -41,25 +42,46 @@ Properties
 					o.uv = v.texcoord;
 					return o;
 				}
+
+				float4 flippedSampleLight(float2 uv)
+				{
+					float2 modified = uv;
+					#if UNITY_UV_STARTS_AT_TOP
+						if(_MainTex_TexelSize.y < 0)
+							modified.y = 1-modified.y;
+					#endif
+
+					return tex2D(tLightSource, modified);
+				}
 		 
 		        half4 frag (v2f i) : COLOR
 		        {
-					int iSamples=10;
-					
-					float2 uv = i.uv - vHalfPixel;
-					float2 deltaTextCoord = float2(uv - float2(fX,fY));
+					int iSamples=20;
 
+					float2 uv = i.uv - vHalfPixel;
+					float2 flippedYUv = uv;
+					float flippedFy = fY;
+					#if UNITY_UV_STARTS_AT_TOP
+						if(_MainTex_TexelSize.y < 0)
+						{
+							flippedYUv.y = 1-flippedYUv.y;
+							flippedFy = 1-flippedFy;
+						}
+					#endif
+
+					float2 deltaTextCoord = float2(uv - float2(fX,flippedFy));
 					deltaTextCoord *= 1.0 /  float(iSamples) * fDensity;
+
 					float illuminationDecay = 1.0;
 					half4 sceneColor = tex2D(_MainTex, uv);
-					half4 itemMask = tex2D(tItemMask, uv);
+					half4 itemMask = tex2D(tItemMask, flippedYUv);
 					float2 coord = uv;
-					
+
 					for(int i=0; i < iSamples ; i++)
 					{
-					    coord -= deltaTextCoord;
-					    float4 lightSource = tex2D(tLightSource, coord);
-						float4 lightContribution = lightSource * fExposure * illuminationDecay*itemMask.a;
+						coord -= deltaTextCoord;
+					    float4 lightSource = flippedSampleLight(coord);
+						float4 lightContribution = lightSource * fExposure * illuminationDecay *itemMask.a;
 						float4 sceneSample = tex2D(_MainTex, coord);
 					    sceneColor += sceneSample*lightContribution*sceneSample.a;
 					    illuminationDecay *= fDecay;
