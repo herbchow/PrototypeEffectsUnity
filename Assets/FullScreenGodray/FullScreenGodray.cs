@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class FullScreenGodray : MonoBehaviour
 {
@@ -7,13 +6,15 @@ public class FullScreenGodray : MonoBehaviour
     public Shader LightSourceShader;
     public float LightScreenCoordX;
     public float LightScreenCoordY;
-    private const string LayerGodrayProducts = "Product";
-    private const string LayerGodrayLight = "GodrayLight";
+
     public Material GodrayMaterial;
     public RenderTexture MaskRt;
     public RenderTexture LightSourceRt;
-    private GameObject _godrayCamera;
 
+    private GameObject _godrayCamera;
+    private const string LayerGodrayProducts = "Product";
+    private const string LayerGodrayLight = "GodrayLight";
+    
     private GameObject GodrayCamera
     {
         get

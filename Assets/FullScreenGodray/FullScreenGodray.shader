@@ -26,7 +26,7 @@ Properties
 				uniform sampler2D _MainTex;
 		        uniform sampler2D tItemMask;
 				uniform sampler2D tLightSource;
-		        uniform float fX,fY,fExposure,fDecay,fDensity,fWeight,fClamp;
+		        uniform float fX,fY,fExposure,fDecay,fDensity,fClamp;
 				uniform float4 vHalfPixel;
 				uniform float4 _MainTex_TexelSize;
 		 
@@ -57,16 +57,6 @@ Properties
 		        half4 frag (v2f i) : COLOR
 		        {
 					int iSamples=20;
-
-					// On D3D when AA is used, the main texture and scene depth texture
-					// will come out in different vertical orientations.
-					// So flip sampling of the texture when that is the case (main texture
-					// texel size will have negative Y).
-					
-					//#if UNITY_UV_STARTS_AT_TOP
-					//if (_MainTex_TexelSize.y < 0)
-					//        i.uv.y = 1-i.uv.y;
-					//#endif
 
 					float2 uv = i.uv - vHalfPixel;
 					float2 flippedYUv = uv;
