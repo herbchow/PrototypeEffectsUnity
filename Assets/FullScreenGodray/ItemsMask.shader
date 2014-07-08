@@ -36,11 +36,6 @@ SubShader {
 			// So flip sampling of the texture when that is the case (main texture
 			// texel size will have negative Y).
 			
-			//#if UNITY_UV_STARTS_AT_TOP
-			//if (_MainTex_TexelSize.y < 0)
-			//        i.uv.y = 1-i.uv.y;
-			//#endif
-			//i.uv.y = 1-i.uv.y;
 			half4 sceneColor = tex2D(_MainTex,i.uv);
 			return sceneColor;
 		}

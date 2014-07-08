@@ -256,9 +256,8 @@ GameObject:
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9500000, guid: 312646556ab2e444bb8166e0e9b2cde7,
-    type: 2}
-  m_PrefabInternal: {fileID: 1900854708}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1493347382}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
@@ -279,7 +278,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36045a3776c57914a9a9843df6e8c4c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GodrayLightSource: {fileID: 678223427}
 --- !u!4 &1493347385
 Transform:
   m_ObjectHideFlags: 0
@@ -486,7 +484,8 @@ Prefab:
       propertyPath: GodrayLightSource
       value: 
       objectReference: {fileID: 678223427}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9500000, guid: 312646556ab2e444bb8166e0e9b2cde7, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 312646556ab2e444bb8166e0e9b2cde7, type: 2}
   m_RootGameObject: {fileID: 1493347382}
   m_IsPrefabParent: 0

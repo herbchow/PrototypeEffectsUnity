@@ -42,10 +42,21 @@ Properties
 					o.uv = v.texcoord;
 					return o;
 				}
+
+				float4 flippedSampleLight(float2 uv)
+				{
+					float2 modified = uv;
+					#if UNITY_UV_STARTS_AT_TOP
+						if(_MainTex_TexelSize.y < 0)
+							modified.y = 1-modified.y;
+					#endif
+
+					return tex2D(tLightSource, modified);
+				}
 		 
 		        half4 frag (v2f i) : COLOR
 		        {
-					int iSamples=10;
+					int iSamples=20;
 
 					// On D3D when AA is used, the main texture and scene depth texture
 					// will come out in different vertical orientations.
@@ -57,38 +68,30 @@ Properties
 					//        i.uv.y = 1-i.uv.y;
 					//#endif
 
-					
 					float2 uv = i.uv - vHalfPixel;
 					float2 flippedYUv = uv;
+					float flippedFy = fY;
 					#if UNITY_UV_STARTS_AT_TOP
 						if(_MainTex_TexelSize.y < 0)
+						{
 							flippedYUv.y = 1-flippedYUv.y;
+							flippedFy = 1-flippedFy;
+						}
 					#endif
 
-					float2 deltaTextCoord = float2(uv - float2(fX,fY));
-					float2 flippedDeltaTexCoord = float2(flippedYUv - float2(fX,-fY));
-
+					float2 deltaTextCoord = float2(uv - float2(fX,flippedFy));
 					deltaTextCoord *= 1.0 /  float(iSamples) * fDensity;
-					flippedDeltaTexCoord *= 1.0 / float(iSamples) * fDensity;
 
 					float illuminationDecay = 1.0;
 					half4 sceneColor = tex2D(_MainTex, uv);
 					half4 itemMask = tex2D(tItemMask, flippedYUv);
 					float2 coord = uv;
-					float2 flippedCoord = flippedYUv;
-					
+
 					for(int i=0; i < iSamples ; i++)
 					{
 						coord -= deltaTextCoord;
-						flippedCoord -= flippedDeltaTexCoord;
-
-						float2 flippedYCoord = coord;
-						#if UNITY_UV_STARTS_AT_TOP
-							if(_MainTex_TexelSize.y < 0)
-								flippedYCoord = flippedCoord;
-						#endif
-					    float4 lightSource = tex2D(tLightSource, flippedYCoord);
-						float4 lightContribution = lightSource * fExposure * illuminationDecay;
+					    float4 lightSource = flippedSampleLight(coord);
+						float4 lightContribution = lightSource * fExposure * illuminationDecay *itemMask.a;
 						float4 sceneSample = tex2D(_MainTex, coord);
 					    sceneColor += sceneSample*lightContribution*sceneSample.a;
 					    illuminationDecay *= fDecay;
