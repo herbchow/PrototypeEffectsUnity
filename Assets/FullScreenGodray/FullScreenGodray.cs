@@ -7,13 +7,12 @@ public class FullScreenGodray : MonoBehaviour
     public Shader LightSourceShader;
     public float LightScreenCoordX;
     public float LightScreenCoordY;
-    private const string LayerGodrayProducts = "Products";
+    private const string LayerGodrayProducts = "Product";
     private const string LayerGodrayLight = "GodrayLight";
     public Material GodrayMaterial;
     public RenderTexture MaskRt;
     public RenderTexture LightSourceRt;
     private GameObject _godrayCamera;
-    private Material _lightSourceMaterial;
 
     private GameObject GodrayCamera
     {
@@ -24,6 +23,7 @@ public class FullScreenGodray : MonoBehaviour
                 _godrayCamera = new GameObject("Godray Camera");
                 _godrayCamera.AddComponent<Camera>();
                 _godrayCamera.camera.CopyFrom(Camera.main);
+                _godrayCamera.camera.depth -= 1;
             }
             return _godrayCamera;
         }
@@ -32,11 +32,11 @@ public class FullScreenGodray : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        const int downscale = 8;
+        const int downscale = 1;
         var rtWidth = Screen.width/downscale;
         var rtHeight = Screen.height/downscale;
-        MaskRt = new RenderTexture(rtWidth, rtHeight, 16);
-        LightSourceRt = new RenderTexture(rtWidth, rtHeight, 16);
+        MaskRt = new RenderTexture(rtWidth, rtHeight,16);
+        LightSourceRt = new RenderTexture(rtWidth, rtHeight,16);
     }
 
     private void OnPreRender()

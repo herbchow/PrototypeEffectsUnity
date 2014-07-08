@@ -37,12 +37,16 @@ Material:
     m_Floats:
       data:
         first:
+          name: _AlphaCutoff
+        second: .674999952
+      data:
+        first:
           name: fX
-        second: .560298502
+        second: .363140404
       data:
         first:
           name: fY
-        second: .156048864
+        second: .67027235
       data:
         first:
           name: fExposure
@@ -57,16 +61,12 @@ Material:
         second: .699999988
       data:
         first:
-          name: fWeight
-        second: 1
-      data:
-        first:
           name: fClamp
         second: 1
       data:
         first:
-          name: _AlphaCutoff
-        second: .674999952
+          name: fWeight
+        second: 1
     m_Colors:
       data:
         first:

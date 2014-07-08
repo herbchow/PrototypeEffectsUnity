@@ -28,6 +28,7 @@ Properties
 				uniform sampler2D tLightSource;
 		        uniform float fX,fY,fExposure,fDecay,fDensity,fWeight,fClamp;
 				uniform float4 vHalfPixel;
+				uniform float4 _MainTex_TexelSize;
 		 
 		        struct v2f {
 					float4 pos : POSITION;
@@ -45,21 +46,49 @@ Properties
 		        half4 frag (v2f i) : COLOR
 		        {
 					int iSamples=10;
+
+					// On D3D when AA is used, the main texture and scene depth texture
+					// will come out in different vertical orientations.
+					// So flip sampling of the texture when that is the case (main texture
+					// texel size will have negative Y).
+					
+					//#if UNITY_UV_STARTS_AT_TOP
+					//if (_MainTex_TexelSize.y < 0)
+					//        i.uv.y = 1-i.uv.y;
+					//#endif
+
 					
 					float2 uv = i.uv - vHalfPixel;
+					float2 flippedYUv = uv;
+					#if UNITY_UV_STARTS_AT_TOP
+						if(_MainTex_TexelSize.y < 0)
+							flippedYUv.y = 1-flippedYUv.y;
+					#endif
+
 					float2 deltaTextCoord = float2(uv - float2(fX,fY));
+					float2 flippedDeltaTexCoord = float2(flippedYUv - float2(fX,-fY));
 
 					deltaTextCoord *= 1.0 /  float(iSamples) * fDensity;
+					flippedDeltaTexCoord *= 1.0 / float(iSamples) * fDensity;
+
 					float illuminationDecay = 1.0;
 					half4 sceneColor = tex2D(_MainTex, uv);
-					half4 itemMask = tex2D(tItemMask, uv);
+					half4 itemMask = tex2D(tItemMask, flippedYUv);
 					float2 coord = uv;
+					float2 flippedCoord = flippedYUv;
 					
 					for(int i=0; i < iSamples ; i++)
 					{
-					    coord -= deltaTextCoord;
-					    float4 lightSource = tex2D(tLightSource, coord);
-						float4 lightContribution = lightSource * fExposure * illuminationDecay*itemMask.a;
+						coord -= deltaTextCoord;
+						flippedCoord -= flippedDeltaTexCoord;
+
+						float2 flippedYCoord = coord;
+						#if UNITY_UV_STARTS_AT_TOP
+							if(_MainTex_TexelSize.y < 0)
+								flippedYCoord = flippedCoord;
+						#endif
+					    float4 lightSource = tex2D(tLightSource, flippedYCoord);
+						float4 lightContribution = lightSource * fExposure * illuminationDecay;
 						float4 sceneSample = tex2D(_MainTex, coord);
 					    sceneColor += sceneSample*lightContribution*sceneSample.a;
 					    illuminationDecay *= fDecay;
