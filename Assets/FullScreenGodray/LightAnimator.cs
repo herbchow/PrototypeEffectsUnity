@@ -16,4 +16,9 @@ public class LightAnimator : MonoBehaviour
 	    _godrayLightSource.transform.localScale = gameObject.transform.localScale;
         _godrayLightSource.transform.localRotation = gameObject.transform.localRotation;
 	}
+
+    public void ProductSelectedAnimComplete()
+    {
+        Debug.Log("ProductSelected anim complete");
+    }
 }
