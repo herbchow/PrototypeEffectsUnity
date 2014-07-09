@@ -42,11 +42,11 @@ Material:
       data:
         first:
           name: fX
-        second: .535196602
+        second: .5
       data:
         first:
           name: fY
-        second: .227859318
+        second: .175136685
       data:
         first:
           name: fExposure
